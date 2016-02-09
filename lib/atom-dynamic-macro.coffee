@@ -1,7 +1,7 @@
 {CompositeDisposable} = require 'atom'
 
 module.exports = AtomDynamicMacro =
-    subscriptions: null
+  subscriptions: null
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
