@@ -19,3 +19,5 @@ module.exports = AtomDynamicMacro =
 
     if editor = atom.workspace.getActiveTextEditor()
       editor.insertText('Hello, World!!!!')
+
+console.log 11111111
