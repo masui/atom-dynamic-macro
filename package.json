@@ -1,0 +1,19 @@
+{
+  "name": "atom-dynamic-macro",
+  "main": "./lib/atom-dynamic-macro",
+  "version": "0.0.0",
+  "description": "Atom version of Dynamic Macro",
+  "keywords": [
+    "Dynamic Macro"
+  ],
+  "activationCommands": {
+    "atom-workspace": "atom-dynamic-macro:execute"
+  },
+  "repository": "https://github.com/atom/atom-dynamic-macro",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
