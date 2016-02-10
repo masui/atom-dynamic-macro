@@ -5,7 +5,6 @@ module.exports = AtomDynamicMacro =
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
-
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-dynamic-macro:execute': => @execute()
 
   deactivate: ->
@@ -15,9 +14,9 @@ module.exports = AtomDynamicMacro =
   serialize: ->
 
   execute: ->
-    console.log 'DynamicMacro executed!'
+    console.log window.keySequence.length
 
     if editor = atom.workspace.getActiveTextEditor()
       editor.insertText('Hello, World!!!!')
-
-console.log 11111111
+      # 本当はここでDynamicMacroみたいなことをしたい
+      # window.keySequence[]を調べる
