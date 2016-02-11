@@ -9,7 +9,7 @@
   "activationCommands": {
     "atom-workspace": "atom-dynamic-macro:execute"
   },
-  "repository": "https://github.com/atom/atom-dynamic-macro",
+  "repository": "https://github.com/masui/atom-dynamic-macro",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
