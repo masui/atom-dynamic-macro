@@ -9,9 +9,27 @@ module.exports = AtomDynamicMacro =
 
   deactivate: ->
     @subscriptions.dispose()
-    @atomDynamicMacroView.destroy()
 
   serialize: ->
+
+  #
+  # 配列の最後に繰り返しがあればその配列を返す
+  #
+  # findRep [1,2,3]                     # => []
+  # findRep [1,2,3,3]                   # => [3]
+  # findRep [1,2,3,1,2,3]               # => [1,2,3]
+  # findRep [1,2,3,3,1,2,3,3]           # => [1,2,3,3]
+  # findRep [1,2,3], (x,y) -> x+1 == y  # => [3]
+  #
+  findRep: (a,compare) ->
+    compare = compare ? (x,y) -> x == y
+    len = a.length
+    res = []
+    for i in [0...len/2]
+      for j in [0..i]
+        break unless compare(a[len-2-i-j], a[len-1-j])
+      res = a[len-j..len-1] if i == j-1
+    res
 
   controlKey: (e) ->
     e.keyIdentifier.match(/Enter|Up|Down|Left|Right|PageUp|PageDown|Escape|Backspace|Delete|Tab|Home|End/) ||
@@ -19,21 +37,27 @@ module.exports = AtomDynamicMacro =
 
   execute: ->
     seq = window.keySequence
-    console.log seq.length
-    cmd = seq[seq.length-3] # Ctrl-Tの直前
+    #editor = atom.workspace.getActiveTextEditor()
+    #view = atom.views.getView(editor)
 
-    editor = atom.workspace.getActiveTextEditor()
-    view = atom.views.getView(editor)
+    console.log seq[0...seq.length-2]
+    cmds = @findRep seq[0...seq.length-2], (x,y) ->
+      x.keyIdentifier == y.keyIdentifier
+    for cmd in cmds
+      if @controlKey(cmd)
+        atom.keymaps.handleKeyboardEvent(cmd)
+      else
+        atom.keymaps.simulateTextInput(cmd)
 
+    #cmd = seq[seq.length-3] # Ctrl-Tの直前
+    #if @controlKey(cmd)
+    #  atom.keymaps.handleKeyboardEvent(cmd)
+    #else
+    #  atom.keymaps.simulateTextInput(cmd)
+
+    # 名前からコマンドを呼ぶ場合
     #command_name = "editor:move-to-end-of-line"
     #atom.commands.dispatch(view, command_name)
-
-    # atom.keymaps.simulateTextInput("A\n")
-    console.log cmd
-    if @controlKey(cmd)
-      atom.keymaps.handleKeyboardEvent(cmd)
-    else
-      atom.keymaps.simulateTextInput(cmd)
 
     # # findKeyBindingsはctrl- とかだけに効くようだ
     # bindings = atom.keymaps.findKeyBindings({keystrokes: "ctrl-e", target: view})
