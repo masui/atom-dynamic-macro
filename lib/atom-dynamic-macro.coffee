@@ -37,12 +37,14 @@ module.exports = AtomDynamicMacro =
     e.keyCode < 32
 
   execute: ->
+    editor = atom.workspace.getActiveTextEditor()
+
     seq = window.keySequence
 
     console.log seq
 
     if seq[seq.length-2].keyIdentifier == "U+0054" &&
-      seq[seq.length-2].ctrlKey
+      seq[seq.length-2].ctrlKey # Ctrl-t 連打
     else
       @repeatedCommands = @findRep seq[0...seq.length-2], (x,y) ->
         x.keyIdentifier == y.keyIdentifier
@@ -50,9 +52,11 @@ module.exports = AtomDynamicMacro =
       if @controlKey(cmd)
         atom.keymaps.handleKeyboardEvent(cmd)
       else
-        atom.keymaps.simulateTextInput(cmd)
+        if cmd.keyCode == 32
+          editor.insertText(" ")
+        else
+          atom.keymaps.simulateTextInput(cmd)
 
-    #editor = atom.workspace.getActiveTextEditor()
     #view = atom.views.getView(editor)
 
     # 名前からコマンドを呼ぶ場合
