@@ -53,10 +53,9 @@ module.exports = AtomDynamicMacro =
     else # 繰り返しを捜す
       @repeatedKeys = @findRep seq[0...seq.length-2], (x,y) ->
         x.keyIdentifier == y.keyIdentifier
-    for key in @repeatedKeys # 繰り返されたコマンドを実行
+    for key in @repeatedKeys # 繰り返されたキー操作列を再実行
       # console.log key.keyIdentifier
       if @normalKey(key)
-        console.log key
         if key.keyCode == 32 # 何故かスペースだけうまくいかないので
           editor.insertText(" ")
         else
