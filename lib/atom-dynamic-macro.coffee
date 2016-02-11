@@ -2,6 +2,7 @@
 
 module.exports = AtomDynamicMacro =
   subscriptions: null
+  repeatedCommands: []
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
@@ -37,23 +38,22 @@ module.exports = AtomDynamicMacro =
 
   execute: ->
     seq = window.keySequence
-    #editor = atom.workspace.getActiveTextEditor()
-    #view = atom.views.getView(editor)
 
-    console.log seq[0...seq.length-2]
-    cmds = @findRep seq[0...seq.length-2], (x,y) ->
-      x.keyIdentifier == y.keyIdentifier
-    for cmd in cmds
+    console.log seq
+
+    if seq[seq.length-2].keyIdentifier == "U+0054" &&
+      seq[seq.length-2].ctrlKey
+    else
+      @repeatedCommands = @findRep seq[0...seq.length-2], (x,y) ->
+        x.keyIdentifier == y.keyIdentifier
+    for cmd in @repeatedCommands
       if @controlKey(cmd)
         atom.keymaps.handleKeyboardEvent(cmd)
       else
         atom.keymaps.simulateTextInput(cmd)
 
-    #cmd = seq[seq.length-3] # Ctrl-Tの直前
-    #if @controlKey(cmd)
-    #  atom.keymaps.handleKeyboardEvent(cmd)
-    #else
-    #  atom.keymaps.simulateTextInput(cmd)
+    #editor = atom.workspace.getActiveTextEditor()
+    #view = atom.views.getView(editor)
 
     # 名前からコマンドを呼ぶ場合
     #command_name = "editor:move-to-end-of-line"
