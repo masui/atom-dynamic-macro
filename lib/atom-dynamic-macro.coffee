@@ -2,7 +2,7 @@
 
 module.exports = AtomDynamicMacro =
   subscriptions: null
-  repeatedCommands: []
+  repeatedKeys: []
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
@@ -30,6 +30,7 @@ module.exports = AtomDynamicMacro =
       for j in [0..i]
         break unless compare(a[len-2-i-j], a[len-1-j])
       res = a[len-j..len-1] if i == j-1
+    # console.log res
     res
 
   controlKey: (e) ->
@@ -38,26 +39,25 @@ module.exports = AtomDynamicMacro =
 
   execute: ->
     editor = atom.workspace.getActiveTextEditor()
+    # view = atom.views.getView(editor)
 
     seq = window.keySequence
-
-    console.log seq
+    #console.log seq
 
     if seq[seq.length-2].keyIdentifier == "U+0054" &&
       seq[seq.length-2].ctrlKey # Ctrl-t 連打
     else
-      @repeatedCommands = @findRep seq[0...seq.length-2], (x,y) ->
+      @repeatedKeys = @findRep seq[0...seq.length-2], (x,y) ->
         x.keyIdentifier == y.keyIdentifier
-    for cmd in @repeatedCommands
-      if @controlKey(cmd)
-        atom.keymaps.handleKeyboardEvent(cmd)
+    for key in @repeatedKeys
+      # console.log key.keyIdentifier
+      if @controlKey(key)
+        atom.keymaps.handleKeyboardEvent(key)
       else
-        if cmd.keyCode == 32
+        if key.keyCode == 32 # 何故かスペースだけうまくいかないので
           editor.insertText(" ")
         else
-          atom.keymaps.simulateTextInput(cmd)
-
-    #view = atom.views.getView(editor)
+          atom.keymaps.simulateTextInput(key)
 
     # 名前からコマンドを呼ぶ場合
     #command_name = "editor:move-to-end-of-line"
@@ -67,16 +67,9 @@ module.exports = AtomDynamicMacro =
     # bindings = atom.keymaps.findKeyBindings({keystrokes: "ctrl-e", target: view})
     # #bindings = atom.keymaps.findKeyBindings({keystrokes: "a"})
 
-    # console.log bindings
     # command_name = bindings.command
     # if !command_name
-    #   #console.log('bindings', bindings)
     #   bind = bindings[0]
     #   command_name = bind.command
     # console.log command_name
     # atom.commands.dispatch(view, command_name)
-
-    #if editor = atom.workspace.getActiveTextEditor()
-    #  # editor.insertText('Hello, World!!!!')
-    #  # 本当はここでDynamicMacroみたいなことをしたい
-    #  # window.keySequence[]を調べる
