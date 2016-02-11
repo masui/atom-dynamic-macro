@@ -33,11 +33,15 @@ module.exports = AtomDynamicMacro =
     # console.log res
     res
 
-  controlKey: (e) ->
-    e.keyIdentifier.match(/Enter|Up|Down|Left|Right|PageUp|PageDown|Escape|Backspace|Delete|Tab|Home|End/) ||
-    e.keyCode < 32
+  normalKey: (key) ->
+    controlKeys = [
+      'Enter', 'Delete', 'Backspace', 'Tab', 'Escape'
+      'Up', 'Down', 'Left', 'Right'
+      'PageUp', 'PageDown', 'Home', 'End'
+    ]
+    key.keyCode >= 32 && ! (key.keyIdentifier in controlKeys)
 
-  execute: ->
+  execute: -> # Dynamic Macro実行
     editor = atom.workspace.getActiveTextEditor()
     # view = atom.views.getView(editor)
 
@@ -46,30 +50,16 @@ module.exports = AtomDynamicMacro =
 
     if seq[seq.length-2].keyIdentifier == "U+0054" &&
       seq[seq.length-2].ctrlKey # Ctrl-t 連打
-    else
+    else # 繰り返しを捜す
       @repeatedKeys = @findRep seq[0...seq.length-2], (x,y) ->
         x.keyIdentifier == y.keyIdentifier
-    for key in @repeatedKeys
+    for key in @repeatedKeys # 繰り返されたコマンドを実行
       # console.log key.keyIdentifier
-      if @controlKey(key)
-        atom.keymaps.handleKeyboardEvent(key)
-      else
+      if @normalKey(key)
+        console.log key
         if key.keyCode == 32 # 何故かスペースだけうまくいかないので
           editor.insertText(" ")
         else
           atom.keymaps.simulateTextInput(key)
-
-    # 名前からコマンドを呼ぶ場合
-    #command_name = "editor:move-to-end-of-line"
-    #atom.commands.dispatch(view, command_name)
-
-    # # findKeyBindingsはctrl- とかだけに効くようだ
-    # bindings = atom.keymaps.findKeyBindings({keystrokes: "ctrl-e", target: view})
-    # #bindings = atom.keymaps.findKeyBindings({keystrokes: "a"})
-
-    # command_name = bindings.command
-    # if !command_name
-    #   bind = bindings[0]
-    #   command_name = bind.command
-    # console.log command_name
-    # atom.commands.dispatch(view, command_name)
+      else
+        atom.keymaps.handleKeyboardEvent(key)
