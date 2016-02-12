@@ -7,6 +7,16 @@ module.exports = AtomDynamicMacro =
   activate: (state) ->
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-dynamic-macro:execute': => @execute()
+    
+    #
+    # activationをディレイするのをやめて、これがすぐ実行されるようにする
+    #
+    window.keySequence = []
+    dynamic_macro_handler = (event) ->
+      seq = window.keySequence
+      seq.push(event)
+      seq.shift() if seq.length > 100
+    document.addEventListener 'keydown', dynamic_macro_handler, true
 
   deactivate: ->
     @subscriptions.dispose()
