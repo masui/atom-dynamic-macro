@@ -1,11 +1,11 @@
-# atom-dynamic-macro
+# dynamic-macro
 
 * [Atom](https://atom.io/)で[Dynamic Macro](https://github.com/masui/DynamicMacro)を実装してみる
 * JunSuzuki氏の[キーボードマクロパッケージ](http://qiita.com/JunSuzukiJapan/items/692dc5390ec545178e7d)を参考にした
 
 ### 使い方
 
-* ```apm install atom-dynamic-macro```
+* ```apm install dynamic-macro```
 
 ### 問題
 
