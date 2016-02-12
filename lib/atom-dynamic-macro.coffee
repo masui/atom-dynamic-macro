@@ -7,9 +7,8 @@ module.exports = AtomDynamicMacro =
   activate: (state) ->
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-dynamic-macro:execute': => @execute()
-    
     #
-    # activationをディレイするのをやめて、これがすぐ実行されるようにする
+    # package.jsonでactivationをディレイするのをやめて、パッケージロード時にこの初期化処理がすぐ実行されるようにする
     #
     window.keySequence = []
     dynamic_macro_handler = (event) ->

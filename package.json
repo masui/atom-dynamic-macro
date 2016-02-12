@@ -6,6 +6,9 @@
   "keywords": [
     "Dynamic Macro"
   ],
+  "activationCommands_removed_for_no_delay": {
+    "atom-workspace": "atom-dynamic-macro:execute"
+  },
   "repository": "https://github.com/masui/atom-dynamic-macro",
   "license": "MIT",
   "engines": {
