@@ -1,15 +1,15 @@
 {
-  "name": "dynamic-macro",
-  "main": "./lib/dynamic-macro",
-  "version": "0.21.0",
+  "name": "atom-dynamic-macro",
+  "main": "./lib/atom-dynamic-macro",
+  "version": "0.0.0",
   "description": "Atom version of Dynamic Macro",
   "keywords": [
     "Dynamic Macro"
   ],
   "activationCommands_removed_for_no_delay": {
-    "atom-workspace": "dynamic-macro:execute"
+    "atom-workspace": "atom-dynamic-macro:execute"
   },
-  "repository": "https://github.com/masui/dynamic-macro",
+  "repository": "https://github.com/masui/atom-dynamic-macro",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

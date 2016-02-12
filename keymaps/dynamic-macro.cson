@@ -13,4 +13,4 @@
 
 '.editor':
   'ctrl-t': 'unset!'
-  'ctrl-t': 'dynamic-macro:execute'
+  'ctrl-t': 'atom-dynamic-macro:execute'

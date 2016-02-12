@@ -5,7 +5,7 @@
 
 ### 使い方
 
-* ```apm install dynamic-macro```
+* ```apm install atom-dynamic-macro```
 
 ### 問題
 
