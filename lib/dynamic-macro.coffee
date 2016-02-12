@@ -77,3 +77,5 @@ module.exports = AtomDynamicMacro =
             atom.keymaps.simulateTextInput(key)
       else
         atom.keymaps.handleKeyboardEvent(key)
+
+#####
