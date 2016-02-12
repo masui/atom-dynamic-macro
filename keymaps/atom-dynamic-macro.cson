@@ -9,7 +9,6 @@
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
 
 #'atom-workspace':
-#  'ctrl-t': 'unset!'
 #  'ctrl-t': 'atom-dynamic-macro:execute'
 
 '.editor':
