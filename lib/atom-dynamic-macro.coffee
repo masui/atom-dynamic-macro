@@ -10,11 +10,10 @@ module.exports = AtomDynamicMacro =
     #
     # package.jsonでactivationをディレイするのをやめて、パッケージロード時にこの初期化処理がすぐ実行されるようにする
     #
-    window.keySequence = []
+    @seq = []
     dynamic_macro_handler = (event) ->
-      seq = window.keySequence
-      seq.push(event)
-      seq.shift() if seq.length > 100
+      @seq.push(event)
+      @seq.shift() if seq.length > 100
     document.addEventListener 'keydown', dynamic_macro_handler, true
 
   deactivate: ->
@@ -60,11 +59,10 @@ module.exports = AtomDynamicMacro =
     editor = atom.workspace.getActiveTextEditor()
     # view = atom.views.getView(editor)
 
-    seq = window.keySequence
-    if seq[seq.length-2].keyIdentifier == "U+0054" &&
-      seq[seq.length-2].ctrlKey # Ctrl-t 連打
+    if @seq[@seq.length-2].keyIdentifier == "U+0054" &&
+      @seq[@seq.length-2].ctrlKey # Ctrl-t 連打
     else # 繰り返しを捜す
-      @repeatedKeys = @findRep seq[0...seq.length-2], (x,y) ->
+      @repeatedKeys = @findRep @seq[0...@seq.length-2], (x,y) ->
         x.keyIdentifier == y.keyIdentifier
     for key in @repeatedKeys # 繰り返されたキー操作列を再実行
       if @normalKey(key)
