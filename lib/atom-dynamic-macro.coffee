@@ -33,13 +33,28 @@ module.exports = AtomDynamicMacro =
     # console.log res
     res
 
-  normalKey: (key) ->
-    controlKeys = [
+  modifierKey: (key) ->
+    key.keyIdentifier in [
+      'Control', 'Alt', 'Shift', 'Meta'
+    ]
+
+  specialKey: (key) ->
+    key.keyIdentifier in [
       'Enter', 'Delete', 'Backspace', 'Tab', 'Escape'
       'Up', 'Down', 'Left', 'Right'
       'PageUp', 'PageDown', 'Home', 'End'
     ]
-    key.keyCode >= 32 && ! (key.keyIdentifier in controlKeys)
+  
+  normalKey: (key) ->
+    !@modifierKey(key) && !@specialKey(key) && key.keyCode >= 32
+
+  #normalKey: (key) ->
+  #  controlKeys = [
+  #    'Enter', 'Delete', 'Backspace', 'Tab', 'Escape'
+  #    'Up', 'Down', 'Left', 'Right'
+  #    'PageUp', 'PageDown', 'Home', 'End'
+  #  ]
+  #key.keyCode >= 32 && ! (key.keyIdentifier in controlKeys)
 
   execute: -> # Dynamic Macro実行
     editor = atom.workspace.getActiveTextEditor()
@@ -53,12 +68,17 @@ module.exports = AtomDynamicMacro =
     else # 繰り返しを捜す
       @repeatedKeys = @findRep seq[0...seq.length-2], (x,y) ->
         x.keyIdentifier == y.keyIdentifier
+    console.log @repeatedKeys
     for key in @repeatedKeys # 繰り返されたキー操作列を再実行
       # console.log key.keyIdentifier
       if @normalKey(key)
-        if key.keyCode == 32 # 何故かスペースだけうまくいかないので
-          editor.insertText(" ")
+        if key.ctrlKey
+          console.log key
+          atom.keymaps.handleKeyboardEvent(key)
         else
-          atom.keymaps.simulateTextInput(key)
+          if key.keyCode == 32 # 何故かスペースだけうまくいかないので
+            editor.insertText(" ")
+          else
+            atom.keymaps.simulateTextInput(key)
       else
         atom.keymaps.handleKeyboardEvent(key)
