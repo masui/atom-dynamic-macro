@@ -78,4 +78,4 @@ module.exports = AtomDynamicMacro =
       else
         atom.keymaps.handleKeyboardEvent(key)
 
-#####
+
