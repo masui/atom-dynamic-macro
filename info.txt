@@ -12,7 +12,6 @@ http://qiita.com/JunSuzukiJapan/items/692dc5390ec545178e7d
     "ctrl-a" みたいなストローク名からコマンド実行する
 
 
-
 バインディングのあるものはこれでシミュレートできる
   atom.keymaps.handleKeyboardEvent(e)
     
