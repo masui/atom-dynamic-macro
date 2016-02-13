@@ -3,20 +3,20 @@
 module.exports = AtomDynamicMacro =
   subscriptions: null
   repeatedKeys: []
-  seq: []
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-dynamic-macro:execute': => @execute()
-    
+
     #
     # package.jsonでactivationをディレイするのをやめて、パッケージロード時にこの初期化処理がすぐ実行されるようにする
     #
     # あらゆるキー操作履歴を@seqに記録する
     @seq = []
     handler = (event) ->
-      @seq.push(event)
-      @seq.shift() if seq.length > 100
+      seq = AtomDynamicMacro.seq
+      seq.push(event)
+      seq.shift() if seq.length > 100
     document.addEventListener 'keydown', handler, true
 
   deactivate: ->
@@ -59,6 +59,7 @@ module.exports = AtomDynamicMacro =
     !@modifierKey(key) && !@specialKey(key) && key.keyCode >= 32
 
   execute: -> # Dynamic Macro実行
+    editor = atom.workspace.getActiveTextEditor()
     if @seq[@seq.length-2].keyIdentifier == "U+0054" &&
       @seq[@seq.length-2].ctrlKey # Ctrl-t 連打
     else # 繰り返しを捜す
@@ -69,6 +70,9 @@ module.exports = AtomDynamicMacro =
         if key.ctrlKey
           atom.keymaps.handleKeyboardEvent(key)
         else
-          atom.keymaps.simulateTextInput(key)
+          if key.keyCode == 32 # 何故かスペースだけうまくいかないので
+            editor.insertText(" ")
+          else
+            atom.keymaps.simulateTextInput(key)
       else
         atom.keymaps.handleKeyboardEvent(key)
