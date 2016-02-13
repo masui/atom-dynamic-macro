@@ -11,9 +11,19 @@
 
 * ```apm install atom-dynamic-macro```
 
-### 参考資料
+### 実装
 
-* JunSuzuki氏の[キーボードマクロパッケージ](http://qiita.com/JunSuzukiJapan/items/692dc5390ec545178e7d)
+* JunSuzuki氏の[キーボードマクロパッケージ](http://qiita.com/JunSuzukiJapan/items/692dc5390ec545178e7d)を参考にした
+* Atomのテンプレート生成器は```package.json```内に以下のような記述を生成し、
+キーが押されたときはじめてパッケージがアクティベートされるようになっているが、
+Atom起動時に```activate```が呼ばれるようにするために
+これを```package.json```から削除している
+
+    ```
+    "activationCommands": {
+      "atom-workspace": "atom-dynamic-macro:execute"
+    },
+    ```
 
 ### Issues
 
