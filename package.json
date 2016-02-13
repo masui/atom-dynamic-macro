@@ -1,7 +1,7 @@
 {
   "name": "atom-dynamic-macro",
   "main": "./lib/atom-dynamic-macro",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dynamic Macro on Atom",
   "keywords": [
     "Dynamic Macro"
