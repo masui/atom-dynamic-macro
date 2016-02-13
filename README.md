@@ -9,7 +9,12 @@
     
 ### インストール
 
-* ```apm install atom-dynamic-macro```
+* パッケージのリストから```dynamic``` ```macro```で検索してインストール
+
+または
+コマンドラインから以下を実行
+
+* ```% apm install atom-dynamic-macro```
 
 ### 実装
 
