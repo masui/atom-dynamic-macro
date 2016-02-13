@@ -3,6 +3,7 @@
 module.exports = AtomDynamicMacro =
   subscriptions: null
   repeatedKeys: []
+  seq: []
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
