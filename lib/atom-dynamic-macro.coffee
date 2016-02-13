@@ -11,10 +11,10 @@ module.exports = AtomDynamicMacro =
     # package.jsonでactivationをディレイするのをやめて、パッケージロード時にこの初期化処理がすぐ実行されるようにする
     #
     @seq = []
-    dynamic_macro_handler = (event) ->
+    handler = (event) ->
       @seq.push(event)
       @seq.shift() if seq.length > 100
-    document.addEventListener 'keydown', dynamic_macro_handler, true
+    document.addEventListener 'keydown', handler, true
 
   deactivate: ->
     @subscriptions.dispose()
@@ -56,9 +56,6 @@ module.exports = AtomDynamicMacro =
     !@modifierKey(key) && !@specialKey(key) && key.keyCode >= 32
 
   execute: -> # Dynamic Macro実行
-    editor = atom.workspace.getActiveTextEditor()
-    # view = atom.views.getView(editor)
-
     if @seq[@seq.length-2].keyIdentifier == "U+0054" &&
       @seq[@seq.length-2].ctrlKey # Ctrl-t 連打
     else # 繰り返しを捜す
@@ -69,11 +66,6 @@ module.exports = AtomDynamicMacro =
         if key.ctrlKey
           atom.keymaps.handleKeyboardEvent(key)
         else
-          if key.keyCode == 32 # 何故かスペースだけうまくいかないので
-            editor.insertText(" ")
-          else
-            atom.keymaps.simulateTextInput(key)
+          atom.keymaps.simulateTextInput(key)
       else
         atom.keymaps.handleKeyboardEvent(key)
-
-
