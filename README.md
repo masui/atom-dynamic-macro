@@ -20,3 +20,4 @@ After editing two lines, you can repeat the task by typing `Ctrl-T`'s.
 * [Emacs version](https://github.com/masui/DynamicMacro)
 * Toshiyuki Masui and Ken Nakayama. [Repeat and predict - two keys to efficient text editing](http://www.pitecan.com/papers/CHI94/CHI94.pdf). In Proceedings of the ACM Conference on Human Factors in Computing Systems (CHI'94), pp. 118-123. 1994.
 * [atom-keyboard-macros](https://atom.io/packages/atom-keyboard-macros) by [JunSuzukiJapan](https://atom.io/users/JunSuzukiJapan)
+* [README in 日本語](https://github.com/masui/atom-dynamic-macro/blob/master/README_jp.md)
