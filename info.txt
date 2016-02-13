@@ -1,0 +1,35 @@
+キーボードマクロの実装を参考にした
+http://qiita.com/JunSuzukiJapan/items/692dc5390ec545178e7d
+
+  keystrokeForKeyboardEvent
+    キーイベントを "ctrl-a" みたいな文字列に変換してる
+
+  parseKeyEvent
+    "ctrl-a" みたいな文字列からバインディングを調べて命令列をつくる
+    DispatchCommand または InputTextCommand
+
+  DispatchCommand
+    "ctrl-a" みたいなストローク名からコマンド実行する
+
+
+
+バインディングのあるものはこれでシミュレートできる
+  atom.keymaps.handleKeyboardEvent(e)
+    
+バインディングが無いものは多分これで
+  atom.keymaps.simulateTextInput(cmd)
+
+名前からコマンドを呼ぶ方法
+  command_name = "editor:move-to-end-of-line"
+  atom.commands.dispatch(view, command_name)
+
+バインディングを知る方法
+  findKeyBindingsはctrl- とかだけに効くようだ
+  bindings = atom.keymaps.findKeyBindings({keystrokes: "ctrl-e", target: view})
+
+  command_name = bindings.command
+    if !command_name
+      bind = bindings[0]
+      command_name = bind.command
+    console.log command_name
+    atom.commands.dispatch(view, command_name)
