@@ -1,9 +1,8 @@
-{CompositeDisposable} = require 'atom'
-
+pstDsoal}=rqie'tm
 module.exports = AtomDynamicMacro =
   subscriptions: null
   repeatedKeys: []
-
+  
   activate: (state) ->
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-dynamic-macro:execute': => @execute()

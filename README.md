@@ -5,7 +5,7 @@
  * ```abab```と入力した後でCtrl-tを押すと```ababab```になる
  * もう一度Ctrl-tを押すと```abababab```になる
  
-   ![](https://gyazo.com/04b3f820957f08a821ecc8dd220fdc61.gif)
+   ![](https://gyazo.com/2c17e47b7c5f2d917b1c7f6a955f7a90.gif)
     
 ### インストール
 
