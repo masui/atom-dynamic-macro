@@ -5,7 +5,8 @@ Execute a repeated task by typing `Ctrl-T`.
 * After typing `abcabc`, you can get another `abc` by typing `Ctrl-T`.
 * You can get more `abc`'s by typing more `Ctrl-T`'s.
 * You can repeat more complex tasks like below.
-After editing two lines, you can repeat the task by typing `Ctrl-T`'s.
+After editing two lines in the same way,
+you can repeat the task by typing `Ctrl-T`'s.
  
    ![](https://gyazo.com/2c17e47b7c5f2d917b1c7f6a955f7a90.gif)
 
