@@ -22,14 +22,11 @@ describe "AtomDynamicMacro", ->
     expect(editor.getCursorBufferPosition()).toEqual([0, 3])
 
     keydown "a", {element:editorElement}
+    expect(editor.getText()).toBe 'abca'
     
     # editor.insertText("c")
     # expect(editor.getText().length).toEqual(4)
-    expect(editor.getText()).toBe 'abca'
 
-    
-    # キーイベントを発生させる方法が不明
-    
     #workspaceElement = atom.views.getView(atom.workspace)
     #editorElement = atom.views.getView(editor)
 
