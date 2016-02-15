@@ -1,4 +1,34 @@
-# AtomDynamicMacro = require '../lib/dynamic-macro'
+AtomDynamicMacro = require '../lib/atom-dynamic-macro'
+{Emitter} = require 'atom'
+
+describe "AtomDynamicMacro", ->
+  [editor, emitter] = []
+  
+  beforeEach ->
+    waitsForPromise ->
+      atom.workspace.open 'sample.txt' # どこかに新規作成するのだろうか?
+      
+    runs ->
+      emitter = new Emitter
+      editor = atom.workspace.getActiveTextEditor()
+      editor.insertText "abc"
+
+  it "should be opened in an editor", ->
+    editor = atom.workspace.getActiveTextEditor()
+    alert editor
+    expect(editor.getPath()).toContain 'sample'
+    expect(editor.getText().length).toEqual(3)
+    # キーイベントを発生させる方法が不明
+    # emitter.emit "keydown", "a"
+    editor.insertText "a"
+    expect(editor.getText().length).toEqual(4)
+
+
+#  it "has some expectations that should pass", ->
+#    expect("apples").toEqual("apple")
+#    expect("oranges").not.toEqual("apples")
+#    alert 100
+    
 #
 # # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 # #
