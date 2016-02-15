@@ -14,9 +14,7 @@ describe "AtomDynamicMacro", ->
     options.element ?= editorElement
     helpers.keydown(key, options)
 
-  it "should be opened in an editor", ->
-    #expect(editor.getPath()).toContain 'sample'
-
+  it "try Dynamic Macro", ->
     editor.insertText("abc")
     expect(editor.getText().length).toEqual(3)
     # editor.setCursorBufferPosition([0, 3])
@@ -24,10 +22,11 @@ describe "AtomDynamicMacro", ->
     expect(editor.getCursorBufferPosition()).toEqual([0, 3])
 
     keydown "a", {element:editorElement}
-    alert editor.getText()
     
     # editor.insertText("c")
-    expect(editor.getText().length).toEqual(4)
+    # expect(editor.getText().length).toEqual(4)
+    expect(editor.getText()).toBe 'abca'
+
     
     # キーイベントを発生させる方法が不明
     
