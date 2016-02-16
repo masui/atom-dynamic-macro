@@ -1,3 +1,9 @@
+#
+# 以下のvim-modeのspecをコピーしてきたもの
+# https://github.com/atom/vim-mode/blob/master/spec/spec-helper.coffee
+#
+# addEventListenerのところを変更してある。
+#
 beforeEach ->
   atom.workspace ||= {}
   
@@ -16,7 +22,7 @@ getEditorElement = (callback) ->
       if e.ctrlKey
         atom.keymaps.handleKeyboardEvent(e)
       else
-        s = String.fromCharCode(parseInt(e.keyIdentifier[2..-1],16))
+        s = String.fromCharCode(parseInt(e.keyIdentifier[2..-1],16)) # "U+0065" => "A"
         e.path[0].getModel().insertText(s)
         atom.keymaps.simulateTextInput(e)
 
