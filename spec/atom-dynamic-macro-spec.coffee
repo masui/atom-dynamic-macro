@@ -1,9 +1,12 @@
 helpers = require './spec-helper'
 
-describe "Insert mode commands", ->
+describe "Spec for Dynamic Macro", ->
   [editor, editorElement] = []
 
   beforeEach ->
+    dm = atom.packages.loadPackage('atom-dynamic-macro')
+    dm.activateResources()
+
     helpers.getEditorElement (element) ->
       editorElement = element
       editor = editorElement.getModel()
@@ -14,14 +17,19 @@ describe "Insert mode commands", ->
     
   describe "Dynamic Macro Test", ->
     beforeEach ->
-      editor.setText("abc")
-      editor.setCursorBufferPosition([0, 3])
+      editor.setText("")
+      # editor.setCursorBufferPosition([0, 3])
 
     describe "Test dynamic macro", ->
       it "try Dynamic Macro", ->
-        # editor.insertText("abc")
-        expect(editor.getText().length).toEqual(3)                 # これは動く
-        expect(editor.getCursorBufferPosition()).toEqual([0, 3])   # これもOK
-    
         keydown "a"
-        expect(editor.getText().length).toEqual(4)
+        keydown "b"
+        keydown "a"
+        keydown "b"
+        expect(editor.getText()).toBe "abab"
+        keydown "t", ctrl: true
+        expect(editor.getText()).toBe "ababab" # fail
+        
+        # alert editor.getText()
+        #expect(editor.getText().length).toEqual(3)                 # これは動く
+        #expect(editor.getCursorBufferPosition()).toEqual([0, 3])   # これもOK
