@@ -2,6 +2,7 @@
 http://qiita.com/JunSuzukiJapan/items/692dc5390ec545178e7d
 
   keystrokeForKeyboardEvent
+    https://github.com/JunSuzukiJapan/atom-keyboard-macros/blob/master/lib/helpers.coffee#L114
     キーイベントを "ctrl-a" みたいな文字列に変換してる
 
   parseKeyEvent
@@ -9,6 +10,7 @@ http://qiita.com/JunSuzukiJapan/items/692dc5390ec545178e7d
     DispatchCommand または InputTextCommand
 
   DispatchCommand
+    https://github.com/JunSuzukiJapan/atom-keyboard-macros/blob/master/lib/macro-command.coffee#L292
     "ctrl-a" みたいなストローク名からコマンド実行する
 
 
