@@ -7,11 +7,11 @@ describe "Testing Dynamic Macro", ->
 
   beforeEach ->
     helpers.getEditorElement (element) ->
-      editorElement = element              # DOM要素
-      editor = editorElement.getModel()    # エディタ本体      
+      editorElement = element              # DOM element
+      editor = editorElement.getModel()    # ATOM's editor object
       editor.setText("")
 
-      # 現在のエディタにおいてCtrl-TでDynamicMacroが呼び出されるようにする
+      # Setups for calling @execute() after typing Ctrl-T
       atom.commands.add 'atom-text-editor', 'atom-dynamic-macro:execute': => dynamicMacro.execute()
       atom.keymaps.add 'test', 'atom-text-editor':
         'ctrl-t': 'unset!'
@@ -32,7 +32,7 @@ describe "Testing Dynamic Macro", ->
     keydown "b"
     keydown "a"
     keydown "b"
-    keydown null, ctrl: true  # Ctrl-Tをシミュレートするのに二回のkeydownが必要
+    keydown null, ctrl: true  # Two Ctrl-T keystrokes required for emulation
     keydown "t", ctrl: true
     #dynamicMacro.execute(test=true)
     expect(editor.getText()).toBe "ababab"
