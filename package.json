@@ -4,7 +4,9 @@
   "version": "1.1.3",
   "description": "Dynamic Macro on Atom",
   "keywords": [
-    "Dynamic Macro"
+    "Dynamic Macro",
+    "utility",
+    "keyboard macro"
   ],
   "activationCommands_xxx": {
     "atom-workspace": "atom-dynamic-macro:execute"
