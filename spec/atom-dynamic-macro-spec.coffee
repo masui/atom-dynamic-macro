@@ -21,21 +21,19 @@ describe "Testing Dynamic Macro", ->
     options.element ?= editorElement
     helpers.keydown(key, options)
 
-  describe "Test dynamic macro", ->
-      
-    it "test repeat function", ->
-      expect(dynamicMacro.findRep([1,2,3])).toEqual []
-      expect(dynamicMacro.findRep([1,2,3,3])).toEqual [3]
-      expect(dynamicMacro.findRep([1,2,3,1,2,3])).toEqual [1,2,3]
-      expect(dynamicMacro.findRep([1,2,3,3,1,2,3,3])).toEqual [1,2,3,3]
+  it "test repeat function", ->
+    expect(dynamicMacro.findRep([1,2,3])).toEqual []
+    expect(dynamicMacro.findRep([1,2,3,3])).toEqual [3]
+    expect(dynamicMacro.findRep([1,2,3,1,2,3])).toEqual [1,2,3]
+    expect(dynamicMacro.findRep([1,2,3,3,1,2,3,3])).toEqual [1,2,3,3]
     
-    it "try Dynamic Macro execution", ->
-      keydown "a"
-      keydown "b"
-      keydown "a"
-      keydown "b"
-      keydown null, ctrl: true  # Ctrl-Tをシミュレートするのに二回のkeydownが必要
-      keydown "t", ctrl: true
-      #dynamicMacro.execute(test=true)
-      expect(editor.getText()).toBe "ababab"
+  it "try Dynamic Macro execution", ->
+    keydown "a"
+    keydown "b"
+    keydown "a"
+    keydown "b"
+    keydown null, ctrl: true  # Ctrl-Tをシミュレートするのに二回のkeydownが必要
+    keydown "t", ctrl: true
+    #dynamicMacro.execute(test=true)
+    expect(editor.getText()).toBe "ababab"
         
