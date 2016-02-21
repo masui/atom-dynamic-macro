@@ -1,8 +1,8 @@
 #
-# 以下のvim-modeのspecをコピーしてきたもの
+# 以下のvim-modeのspecを参考にしたもの
 # https://github.com/atom/vim-mode/blob/master/spec/spec-helper.coffee
 #
-# addEventListenerのところを変更してある。
+# addEventListenerあたりをDynamicMacro用にクイックハック
 #
 
 dynamicMacro = require '../lib/atom-dynamic-macro'
@@ -28,12 +28,7 @@ getEditorElement = (callback) ->
       seq.push(event)
       seq.shift() if seq.length > 100
       
-      #if e.ctrlKey
       atom.keymaps.handleKeyboardEvent(e)
-      #else
-        #s = String.fromCharCode(parseInt(e.keyIdentifier[2..-1],16)) # "U+0065" => "A"
-        #e.path[0].getModel().insertText(s)
-        #atom.keymaps.simulateTextInput(e)
         
     element.addEventListener "textInput", (e) ->
       if e.data.match(/^U/)
@@ -42,9 +37,6 @@ getEditorElement = (callback) ->
         s = e.data
       e.path[0].getModel().insertText(s)
       
-      #atom.keymaps.simulateTextInput(e)
-      #console.log e
-        
     # mock parent element for the text editor
     document.createElement("html").appendChild(element)
 
