@@ -32,6 +32,7 @@ describe "Testing Dynamic Macro", ->
     keydown "b"
     keydown "a"
     keydown "b"
+    expect(editor.getText()).toBe "abab"
     keydown null, ctrl: true  # Two Ctrl-T keystrokes required for emulation
     keydown "t", ctrl: true
     #dynamicMacro.execute(test=true)
