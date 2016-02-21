@@ -1,4 +1,4 @@
-# atom-dynamic-macro
+# [atom-dynamic-macro](https://atom.io/packages/atom-dynamic-macro)
 
 Execute a repeated task by typing `Ctrl-T`.
 
