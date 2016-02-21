@@ -8,7 +8,7 @@ Execute a repeated task by typing `Ctrl-T`.
    ![](https://gyazo.com/6d64570bf46ceb78d45af3fb04051da5.gif)
 
 * You can repeat more complex tasks like below.
-After editing two lines in the same way,
+After editing top two lines in the same way,
 you can repeat the task by typing `Ctrl-T`'s.
  
    ![](https://gyazo.com/2c17e47b7c5f2d917b1c7f6a955f7a90.gif)
