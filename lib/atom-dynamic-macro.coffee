@@ -9,9 +9,10 @@ module.exports = AtomDynamicMacro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-dynamic-macro:execute': => @execute()
 
     #
-    # package.jsonでactivationをディレイするのをやめて、パッケージロード時にこの初期化処理がすぐ実行されるようにする
+    # @activate() called immediately after loading this package
+    # (by removing "activationCommands" part from package.json)
     #
-    # あらゆるキー操作履歴を@seqに記録する
+    # Record all key strokes in @spec
     @seq = []
     handler = (event) ->
       seq = AtomDynamicMacro.seq
@@ -25,7 +26,7 @@ module.exports = AtomDynamicMacro =
   serialize: ->
 
   #
-  # 配列の最後に繰り返しがあればその配列を返す
+  # Detect repeated elements at the end of an array
   #
   # findRep [1,2,3]                     # => []
   # findRep [1,2,3,3]                   # => [3]
@@ -58,19 +59,19 @@ module.exports = AtomDynamicMacro =
   normalKey: (key) ->
     !@modifierKey(key) && !@specialKey(key) && key.keyCode >= 32
 
-  execute: -> # Dynamic Macro実行
+  execute: -> # Dynamic Macro execution
     editor = atom.workspace.getActiveTextEditor()
     if @seq[@seq.length-2].keyIdentifier == "U+0054" &&
-      @seq[@seq.length-2].ctrlKey # Ctrl-t 連打
-    else # 繰り返しを捜す
+      @seq[@seq.length-2].ctrlKey # typing Ctrl-t repeatedly
+    else # Find a repeated keystrokes
       @repeatedKeys = @findRep @seq[0...@seq.length-2], (x,y) ->
         x && y && x.keyIdentifier == y.keyIdentifier
-    for key in @repeatedKeys # 繰り返されたキー操作列を再実行
+    for key in @repeatedKeys # Re-execute repeated key strokes
       if @normalKey(key)
         if key.ctrlKey
           atom.keymaps.handleKeyboardEvent(key)
         else
-          if key.keyCode == 32 # 何故かスペースだけうまくいかないので
+          if key.keyCode == 32 # Special handling for space key
             editor.insertText(" ")
           else
             atom.keymaps.simulateTextInput(key)
