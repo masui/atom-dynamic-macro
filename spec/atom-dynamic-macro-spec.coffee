@@ -19,8 +19,14 @@ describe "Testing Dynamic Macro", ->
   describe "Dynamic Macro Test", ->
     beforeEach ->
       editor.setText("")
-      # editor.setCursorBufferPosition([0, 3])
 
+      atom.commands.add 'atom-text-editor', 'atom-dynamic-macro:execute': => dynamicMacro.execute()
+
+      atom.keymaps.add 'test', 'atom-text-editor':
+        'ctrl-t': 'unset!'
+        'ctrl-t': 'atom-dynamic-macro:execute' # 動かない...
+        # 'ctrl-t': 'editor:transpose'
+      
     describe "Test dynamic macro", ->
       
       it "try repeat func", ->
@@ -29,21 +35,13 @@ describe "Testing Dynamic Macro", ->
         expect(dynamicMacro.findRep([1,2,3,1,2,3])).toEqual [1,2,3]
         expect(dynamicMacro.findRep([1,2,3,3,1,2,3,3])).toEqual [1,2,3,3]
       
-      it "try Dynamic Macro", ->
+      it "try Dynamic Macro execution", ->
         keydown "a"
         keydown "b"
         keydown "a"
         keydown "b"
-        expect(editor.getText()).toBe "abab"
         #keydown "t", ctrl: true
         #keydown "t", ctrl: true
-        #keydown "a", ctrl: true
-        #keydown "a", ctrl: true
         dynamicMacro.execute(test=true)
         expect(editor.getText()).toBe "ababab"
-
-      #  alert editor.getCursorBufferPosition()
-      #  #alert editor.getText()
-      #  # alert editor.getText()
-      #  #expect(editor.getText().length).toEqual(3)                 # これは動く
-      #  #expect(editor.getCursorBufferPosition()).toEqual([0, 3])   # これもOK
+        

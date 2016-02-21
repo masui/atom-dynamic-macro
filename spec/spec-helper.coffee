@@ -36,7 +36,6 @@ getEditorElement = (callback) ->
         #atom.keymaps.simulateTextInput(e)
         
     element.addEventListener "textInput", (e) ->
-      console.log e
       if e.data.match(/^U/)
         s = String.fromCharCode(parseInt(e.data[2..-1],16)) # "U+0065" => "A"
       else
