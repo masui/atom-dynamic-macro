@@ -9,7 +9,9 @@ describe "Testing Dynamic Macro", ->
     helpers.getEditorElement (element) ->
       editorElement = element              # DOM要素
       editor = editorElement.getModel()    # エディタ本体
-
+    
+    dynamicMacro.activate()
+    
   keydown = (key, options={}) ->
     options.element ?= editorElement
     helpers.keydown(key, options)
@@ -27,16 +29,20 @@ describe "Testing Dynamic Macro", ->
         expect(dynamicMacro.findRep([1,2,3,1,2,3])).toEqual [1,2,3]
         expect(dynamicMacro.findRep([1,2,3,3,1,2,3,3])).toEqual [1,2,3,3]
       
-      #it "try Dynamic Macro", ->
-      #  keydown "a"
-      #  keydown "b"
-      #  keydown "a"
-      #  keydown "b"
-      #  expect(editor.getText()).toBe "abab"
-      #  keydown "a", ctrl: true
-      #  keydown "t", ctrl: true
-      #  #alert editor.getCursorBufferPosition()
-      #  # expect(editor.getText()).toBe "ababab" # fail
+      it "try Dynamic Macro", ->
+        keydown "a"
+        keydown "b"
+        keydown "a"
+        keydown "b"
+        expect(editor.getText()).toBe "abab"
+        #keydown "t", ctrl: true
+        #keydown "t", ctrl: true
+        #keydown "a", ctrl: true
+        #keydown "a", ctrl: true
+        dynamicMacro.execute(test=true)
+        expect(editor.getText()).toBe "ababab"
+
+      #  alert editor.getCursorBufferPosition()
       #  #alert editor.getText()
       #  # alert editor.getText()
       #  #expect(editor.getText().length).toEqual(3)                 # これは動く
