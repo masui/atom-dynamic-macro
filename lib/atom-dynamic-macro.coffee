@@ -58,13 +58,12 @@ module.exports = AtomDynamicMacro =
   normalKey: (key) ->
     !@modifierKey(key) && !@specialKey(key) && key.keyCode >= 32
 
-  execute: (test) -> # Dynamic Macro実行
+  execute: -> # Dynamic Macro実行
     editor = atom.workspace.getActiveTextEditor()
     if @seq[@seq.length-2].keyIdentifier == "U+0054" &&
       @seq[@seq.length-2].ctrlKey # Ctrl-t 連打
     else # 繰り返しを捜す
-      offset = if test then 0 else 2
-      @repeatedKeys = @findRep @seq[0...@seq.length-offset], (x,y) ->
+      @repeatedKeys = @findRep @seq[0...@seq.length-2], (x,y) ->
         x && y && x.keyIdentifier == y.keyIdentifier
     for key in @repeatedKeys # 繰り返されたキー操作列を再実行
       if @normalKey(key)
