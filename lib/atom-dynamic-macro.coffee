@@ -65,8 +65,7 @@ module.exports = AtomDynamicMacro =
     else # 繰り返しを捜す
       offset = if test then 0 else 2
       @repeatedKeys = @findRep @seq[0...@seq.length-offset], (x,y) ->
-        # @repeatedKeys = @findRep @seq[0...@seq.length-2], (x,y) ->
-        x.keyIdentifier == y.keyIdentifier
+        x && y && x.keyIdentifier == y.keyIdentifier
     for key in @repeatedKeys # 繰り返されたキー操作列を再実行
       if @normalKey(key)
         if key.ctrlKey

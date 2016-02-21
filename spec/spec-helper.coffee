@@ -72,7 +72,11 @@ dispatchTextEvent = (target, eventArgs...) ->
   target.dispatchEvent e
 
 keydown = (key, {element, ctrl, shift, alt, meta, raw}={}) ->
-  key = "U+#{key.charCodeAt(0).toString(16)}" unless key is 'escape' or raw?
+  key = 
+    if key
+      "U+#{key.charCodeAt(0).toString(16)}" unless key is 'escape' or raw?
+    else
+      ""
   element ||= document.activeElement
   eventArgs = [
     false, # bubbles

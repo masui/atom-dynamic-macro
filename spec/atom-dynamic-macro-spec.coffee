@@ -40,8 +40,8 @@ describe "Testing Dynamic Macro", ->
         keydown "b"
         keydown "a"
         keydown "b"
-        #keydown "t", ctrl: true
-        #keydown "t", ctrl: true
-        dynamicMacro.execute(test=true)
+        keydown null, ctrl: true
+        keydown "t", ctrl: true
+        #dynamicMacro.execute(test=true)
         expect(editor.getText()).toBe "ababab"
         
